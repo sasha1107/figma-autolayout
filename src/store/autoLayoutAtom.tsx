@@ -1,6 +1,6 @@
-import { atom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
-export const autoLayoutAtom = atom(false);
-export const flexDirectionAtom = atom<"flex-row" | "flex-col" | "flex-wrap">(
-  "flex-row"
-);
+export const autoLayoutAtom = atomWithStorage("autoLayoutAtom", false);
+export const flexDirectionAtom = atomWithStorage<
+  "flex-row" | "flex-col" | "flex-wrap"
+>("flexDirectionAtom", "flex-row");
