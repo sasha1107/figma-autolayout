@@ -1,10 +1,12 @@
 import { Toggle } from "@/components/ui/toggle";
-import { LayoutPanelLeft } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { LayoutPanelLeft, MoveRight, MoveDown, Redo2 } from "lucide-react";
 import { useAtom } from "jotai";
-import { autoLayoutAtom } from "@/store/autoLayoutAtom";
+import { autoLayoutAtom, flexDirectionAtom } from "@/store/autoLayoutAtom";
 
 const DesignPanel = () => {
   const [autoLayout, setAutoLayout] = useAtom(autoLayoutAtom);
+  const [flexDirection, setFlexDirection] = useAtom(flexDirectionAtom);
   return (
     <section className="fixed h-dvh p-8 right-0 w-1/6">
       <div className="border h-full rounded-md flex flex-col divide-y">
@@ -23,7 +25,25 @@ const DesignPanel = () => {
             <div className="grid grid-cols-7 grid-rows-5">
               <div className="col-span-3">w</div>
               <div className="col-span-3">h</div>
-              <div className="col-span-3 col-start-1">col .row</div>
+              <div className="col-span-3 col-start-1">
+                <ToggleGroup
+                  type="single"
+                  defaultValue={flexDirection}
+                  onValueChange={(
+                    value: "flex-row" | "flex-col" | "flex-wrap"
+                  ) => setFlexDirection(value)}
+                >
+                  <ToggleGroupItem value="flex-row">
+                    <MoveRight size={12} />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="flex-col">
+                    <MoveDown size={12} />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value="flex-wrap">
+                    <Redo2 size={12} className="rotate-180" />
+                  </ToggleGroupItem>
+                </ToggleGroup>
+              </div>
               <div className="col-span-3 row-span-2">3*3</div>
               <div className="col-span-3 col-start-1">gap</div>
               <div className="col-span-3 col-start-1">px</div>
